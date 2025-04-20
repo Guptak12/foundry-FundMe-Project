@@ -55,10 +55,14 @@ contract FundMe {
         }
         s_funders = new address[](0);
 
+        // Attempt to send all the contract's balance to the owner.
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
-        require(callSuccess, "Call failed");
+        require(
+            callSuccess,
+            "Call failed: Ensure the recipient is a payable address and there is enough gas."
+        );
     }
 
     function withdraw() public onlyOwner {
