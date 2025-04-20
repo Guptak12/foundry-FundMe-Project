@@ -1,66 +1,102 @@
-## Foundry
+# FundMe Smart Contract Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized crowdfunding platform built with **Foundry** and **Solidity**. This project is inspired by the idea of allowing users to contribute ETH to a smart contract, and the owner can withdraw the funds when needed.
 
-Foundry consists of:
+## 🛠️ Tech Stack
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **Solidity** – Smart contract language
+- **Foundry** – Fast, portable and modular toolkit for Ethereum application development
+- **Chainlink** – For fetching real-time ETH/USD price data via oracles
+- **Remappings** – For managing imports
+- **Forge** – CLI for building and testing smart contracts
 
-## Documentation
+## 📂 Project Structure
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+fundme-foundry/
+│
+├── src/
+│   ├── FundMe.sol                # Main FundMe contract
+│   └── PriceConverter.sol        # Library to convert ETH to USD
+│
+├── script/
+│   └── DeployFundMe.s.sol       # Script to deploy FundMe contract
+│
+├── test/
+│   └── FundMeTest.t.sol         # Unit tests for the contract
+│
+├── lib/                         # Dependencies (e.g., Chainlink contracts)
+├── .env                         # Environment variables
+├── foundry.toml                 # Foundry configuration
+└── README.md                    # Project documentation
 ```
 
-### Test
+## 🚀 Getting Started
 
-```shell
-$ forge test
+### Prerequisites
+
+- [Foundry](https://book.getfoundry.sh/getting-started/installation) installed
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 ```
 
-### Format
+- Create a `.env` file with the following:
 
-```shell
-$ forge fmt
+```env
+PRIVATE_KEY=your_private_key
+ETHERSCAN_API_KEY=your_etherscan_api_key
+RPC_URL=your_rpc_url
 ```
 
-### Gas Snapshots
+### Install Dependencies
 
-```shell
-$ forge snapshot
+```bash
+forge install
 ```
 
-### Anvil
+### Compile Contracts
 
-```shell
-$ anvil
+```bash
+forge build
 ```
 
-### Deploy
+### Run Tests
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```bash
+forge test
 ```
 
-### Cast
+### Deploy the Contract
 
-```shell
-$ cast <subcommand>
+```bash
+forge script script/DeployFundMe.s.sol:DeployFundMe --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast --verify
 ```
 
-### Help
+> ⚠️ Make sure your `.env` file is correctly configured and you have sufficient testnet/mainnet ETH.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## 💡 Features
+
+- Users can fund the contract with ETH
+- Owner can withdraw funds
+- Integration with Chainlink price feeds for ETH/USD conversion
+- Unit-tested and modular code structure
+
+## 🧪 Testing
+
+This project uses `forge test` for running tests, with custom assertions for gas estimation and correctness of fund management logic.
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Acknowledgements
+
+- [Patrick Collins](https://github.com/PatrickAlphaC) – for the original concept
+- [Foundry Book](https://book.getfoundry.sh/) – Foundry documentation
+- [Chainlink](https://docs.chain.link/) – Oracle provider
+
+---
+
+Made with ❤️ using Foundry.
